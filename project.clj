@@ -97,7 +97,9 @@
                                  [pjstadig/humane-test-output "0.8.0"]
                                  [lein-figwheel "0.5.2"]
                                  [lein-doo "0.1.6"]
-                                 [com.cemerick/piggieback "0.2.2-SNAPSHOT"]]
+                                 [com.cemerick/piggieback "0.2.2-SNAPSHOT"]
+
+                                 [org.clojure/tools.namespace "0.2.11"]]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.14.0"]
                                  [lein-figwheel "0.5.2"]
                                  [lein-doo "0.1.6"]

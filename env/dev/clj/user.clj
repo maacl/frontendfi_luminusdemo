@@ -1,6 +1,7 @@
 (ns user
   (:require [mount.core :as mount]
             [frontendfi.figwheel :refer [start-fw stop-fw cljs]]
+            [clojure.tools.namespace.repl :refer [refresh]]
             frontendfi.core))
 
 (defn start []
@@ -11,6 +12,6 @@
 
 (defn restart []
   (stop)
-  (start))
+  (refresh :after 'user/start))
 
 
