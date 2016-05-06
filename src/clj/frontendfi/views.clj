@@ -1,4 +1,4 @@
-(ns frontendfi.views.home
+(ns frontendfi.views
   (:require [hiccup.page :as page]
             [hiccup.element :as el]))
 

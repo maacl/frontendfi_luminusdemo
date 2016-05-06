@@ -6,7 +6,7 @@
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]
             [hiccup.core :as hiccup]
-            [frontendfi.views.home :refer [error]]))
+            [frontendfi.views :refer [error]]))
 
 (declare ^:dynamic *identity*)
 (declare ^:dynamic *app-context*)

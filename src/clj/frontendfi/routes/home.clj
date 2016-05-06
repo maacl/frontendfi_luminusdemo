@@ -4,7 +4,7 @@
             [ring.util.http-response :as response]
             [clojure.java.io :as io]
 
-            [frontendfi.views.home :as home]))
+            [frontendfi.views :as home]))
 
 (defn home-page []
   (layout/render (home/main)))
