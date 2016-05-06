@@ -1,6 +1,5 @@
 (ns frontendfi.core-test
   (:require [cljs.test :refer-macros [is are deftest testing use-fixtures]]
-            [reagent.core :as reagent :refer [atom]]
             [frontendfi.core :as rc]))
 
 (deftest test-home
