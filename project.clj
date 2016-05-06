@@ -130,6 +130,7 @@
                   :source-paths ["env/dev/clj" "test/clj"]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user
+                                 :init (frontendfi.core/-main)
                                  :nrepl-middleware
                                  [cemerick.piggieback/wrap-cljs-repl]}
                   :injections [(require 'pjstadig.humane-test-output)
