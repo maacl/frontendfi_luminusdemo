@@ -6,32 +6,17 @@
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]
             [hiccup.core :as hiccup]
-            [frontendfi.views :refer [error]]))
+            [frontendfi.views :refer [error]]
+            [rum.core :as rum]))
 
 (declare ^:dynamic *identity*)
 (declare ^:dynamic *app-context*)
-#_(parser/set-resource-path!  (clojure.java.io/resource "templates"))
-#_(parser/add-tag! :csrf-field (fn [_ _] (anti-forgery-field)))
-#_(filters/add-filter! :markdown (fn [content] [:safe (md-to-html-string content)]))
-
-#_(defn render
-  "renders the HTML template located relative to resources/templates"
-  [template & [params]]
-  (content-type
-    (ok
-      (parser/render-file
-        template
-        (assoc params
-          :page template
-          :csrf-token *anti-forgery-token*
-          :servlet-context *app-context*)))
-    "text/html; charset=utf-8"))
 
 (defn render
-  [hiccup-fn & [params]]
+  [rum-component & [params]]
   (content-type
     (ok
-      (hiccup/html (hiccup-fn (assoc params
+      (rum/render-html (rum-component (assoc params
                                 :csrf-token *anti-forgery-token*
                                 :servlet-context *app-context*))))
     "text/html; charset=utf-8"))
@@ -47,6 +32,6 @@
   [error-details]
   {:status  (:status error-details)
    :headers {"Content-Type" "text/html; charset=utf-8"}
-   :body    ((error) (merge
+   :body    (error (merge
                        error-details
                        {:message "Luckily it's not the end of the world!"}))})

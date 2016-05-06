@@ -7,7 +7,7 @@
             [frontendfi.views :as home]))
 
 (defn home-page []
-  (layout/render (home/main)))
+  (layout/render home/main))
 
 (defroutes home-routes
   (GET "/" [] (home-page))

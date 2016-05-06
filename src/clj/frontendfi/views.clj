@@ -1,6 +1,8 @@
 (ns frontendfi.views
   (:require [hiccup.page :as page]
-            [hiccup.element :as el]))
+            [hiccup.element :as el]
+            [rum.core :as rum]
+            [frontendfi.views.app :refer [app]]))
 
 (defn- boilerplate-js [token context]
   (str "var context = " context ";
@@ -32,63 +34,55 @@
                             vertical-align: middle;
                    }")
 
-(defn main []
-  (fn [{:keys [csrf-token servlet-context]}]
-    (page/html5
-     {}
-     [:head
-      [:meta
-       {:content "text/html; charset=UTF-8", :http-equiv "Content-Type"}]
-      [:meta
-       {:content "width=device-width, initial-scale=1", :name "viewport"}]
-      [:title "Welcome to frontendfi"]]
-     [:body
-      [:div#navbar]
-      [:div#app
-       [:div.container
-        [:div.three-quarters-loader "Loading…"]
-        [:p
-         "If you're seeing this message, that means you haven't yet compiled your ClojureScript!"]
-        [:p
-         "Please run "
-         [:code "lein figwheel"]
-         " to start the ClojureScript compiler and reload the page."]
-        [:p
-         "See "
-         [:a
-          {:href "http://www.luminusweb.net/docs/clojurescript.md"}
-          "ClojureScript"]
-         " documentation for further details."]]]
-      [:div.example [:div.example-title "Controls"] [:div#controls]]
-      (page/include-css "/assets/bootstrap/css/bootstrap.min.css")
-      (page/include-css "/assets/font-awesome/css/font-awesome.min.css")
-      (page/include-css "/css/screen.css")
-      (el/javascript-tag (boilerplate-js csrf-token servlet-context))
-      (page/include-js "/js/app.js")])))
+(rum/defc main [{:keys [csrf-token servlet-context]}]
+          [:html
+           [:head
+            [:meta
+             {:http-equiv "Content-Type", :content "text/html; charset=UTF-8"}]
+            [:meta
+             {:name "viewport", :content "width=device-width, initial-scale=1"}]
+            [:title "Welcome to frontendfi"]]
+           [:body
+            [:div#navbar]
+            [:div#app
+             (app)]
+            [:link
+             {:type "text/css",
+              :rel  "stylesheet",
+              :href "/assets/bootstrap/css/bootstrap.min.css"}]
+            [:link
+             {:type "text/css",
+              :rel  "stylesheet",
+              :href "/assets/font-awesome/css/font-awesome.min.css"}]
+            [:link
+             {:type "text/css", :rel "stylesheet", :href "/css/screen.css"}]
+            [:script
+             {:type "text/javascript"}
+             (boilerplate-js csrf-token servlet-context)]
+            [:script {:type "text/javascript", :src "/js/app.js"}]]])
 
-(defn error []
-  (fn [{:keys [status title message]}]
-    (page/html5
-      {}
-      [:head
-       [:title "Something bad happened"]
-       [:meta
-        {:content "text/html; charset=UTF-8", :http-equiv "Content-Type"}]
-       [:meta
-        {:content "width=device-width, initial-scale=1.0",
-         :name    "viewport"}]
-       (page/include-css "/assets/bootstrap/css/bootstrap.min.css")
-       (page/include-css "/assets/font-awesome/css/font-awesome.min.css")
-       [:style
-        {:type "text/css"}
-        error-css]]
-      [:body
-       [:div.container-fluid
-        [:div.row-fluid
-         [:div.col-lg-12
-          [:div.centering.text-center
-           [:div.text-center
-            [:h1 [:span.text-danger (str "Error: " status)]]
-            [:hr]
-            (when title [:h2.without-margin title])
-            (when message [:h4.text-danger message])]]]]]])))
+(defn error [{:keys [status title message]}]
+  (page/html5
+    {}
+    [:head
+     [:title "Something bad happened"]
+     [:meta
+      {:content "text/html; charset=UTF-8", :http-equiv "Content-Type"}]
+     [:meta
+      {:content "width=device-width, initial-scale=1.0",
+       :name    "viewport"}]
+     (page/include-css "/assets/bootstrap/css/bootstrap.min.css")
+     (page/include-css "/assets/font-awesome/css/font-awesome.min.css")
+     [:style
+      {:type "text/css"}
+      error-css]]
+    [:body
+     [:div.container-fluid
+      [:div.row-fluid
+       [:div.col-lg-12
+        [:div.centering.text-center
+         [:div.text-center
+          [:h1 [:span.text-danger (str "Error: " status)]]
+          [:hr]
+          (when title [:h2.without-margin title])
+          (when message [:h4.text-danger message])]]]]]]))
