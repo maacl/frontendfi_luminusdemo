@@ -15,5 +15,6 @@
 (defroutes home-routes
   (GET "/" [] (home-page))
   (GET "/devcards" [] (devcards))
+  (GET "/error" [] (response/ok {:result (/ 10 0)}))
   (GET "/docs" [] (response/ok (-> "docs/docs.md" io/resource slurp))))
 
