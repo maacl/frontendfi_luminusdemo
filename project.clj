@@ -31,7 +31,8 @@
                  [org.webjars/webjars-locator-jboss-vfs "0.1.0"]
                  [luminus-immutant "0.2.0"]
 
-                 [rum "0.8.3"]]
+                 [rum "0.8.3"]
+                 [devcards "0.2.1-6"]]
 
   :min-lein-version "2.0.0"
 
@@ -98,8 +99,7 @@
                                  [lein-doo "0.1.6"]
                                  [com.cemerick/piggieback "0.2.2-SNAPSHOT"]
 
-                                 [org.clojure/tools.namespace "0.2.11"]
-                                 [devcards "0.2.1-6"]]
+                                 [org.clojure/tools.namespace "0.2.11"]]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.14.0"]
                                  [lein-figwheel "0.5.2"]
                                  [lein-doo "0.1.6"]
