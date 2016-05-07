@@ -32,10 +32,5 @@
            [:dt "Tick: "]
            [:dd (input *speed) " ms"]])
 
-
 #?(:cljs
-   (defn mount! [mount-el]
-     (rum/mount (controls) mount-el)))
-
-#?(:cljs
-   (defcard (controls)))
+   (defcard foo (controls)))

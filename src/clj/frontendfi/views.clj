@@ -1,13 +1,12 @@
 (ns frontendfi.views
   (:require [hiccup.page :as page]
-            [hiccup.element :as el]
             [rum.core :as rum]
-            [frontendfi.views.app :refer [app]]
-            [devcards.core :as devcards]))
+            [frontendfi.views.app :refer [app]]))
 
 (defn- boilerplate-js [token context]
-  (str "var context = " context ";
-  var csrfToken = " token ";"))
+  (let [context (when context (str "var context = " context ";"))
+        token (when token (str "var token = " token ";"))]
+    (str context token)))
 
 (def error-css
   " html {

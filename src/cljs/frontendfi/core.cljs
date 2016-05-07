@@ -4,7 +4,10 @@
             [goog.history.EventType :as HistoryEventType]
             [markdown.core :refer [md->html]]
             [frontendfi.ajax :refer [load-interceptors!]]
-            [ajax.core :refer [GET POST]])
+            [ajax.core :refer [GET POST]]
+
+            [rum.core :as rum]
+            [frontendfi.views.app :as app])
   (:import goog.History))
 
 #_(def pages
@@ -39,8 +42,7 @@
 ;; Initialize app
 
 (defn mount-components []
-  #_(r/render [#'navbar] (.getElementById js/document "navbar"))
-  #_(r/render [#'page] (.getElementById js/document "app")))
+  (app/mount! (js/document.getElementById "app")))
 
 (defn init! []
   (load-interceptors!)
