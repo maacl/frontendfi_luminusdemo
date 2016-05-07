@@ -11,12 +11,12 @@
 (declare ^:dynamic *app-context*)
 
 (defn render
-  [rum-component & [params]]
+  [hiccup & [params]]
   (content-type
     (ok
-      (rum/render-html (rum-component (assoc params
-                                :csrf-token *anti-forgery-token*
-                                :servlet-context *app-context*))))
+      (hiccup/html (hiccup (assoc params
+                             :csrf-token *anti-forgery-token*
+                             :servlet-context *app-context*))))
     "text/html; charset=utf-8"))
 
 (defn error-page

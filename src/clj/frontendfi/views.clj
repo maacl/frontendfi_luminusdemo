@@ -4,8 +4,8 @@
             [frontendfi.views.app :refer [app]]))
 
 (defn- boilerplate-js [token context]
-  (let [context (when context (str "var context = " context ";"))
-        token (when token (str "var token = " token ";"))]
+  (let [context (when context (str "var context = \"" context "\";"))
+        token (when token (str "var token = \"" token "\";"))]
     (str context token)))
 
 (def error-css
@@ -34,32 +34,32 @@
                             vertical-align: middle;
                    }")
 
-(rum/defc main [{:keys [csrf-token servlet-context]}]
-          [:html
-           [:head
-            [:meta
-             {:http-equiv "Content-Type", :content "text/html; charset=UTF-8"}]
-            [:meta
-             {:name "viewport", :content "width=device-width, initial-scale=1"}]
-            [:title "Welcome to frontendfi"]]
-           [:body
-            [:div#navbar]
-            [:div#app
-             (app)]
-            [:link
-             {:type "text/css",
-              :rel  "stylesheet",
-              :href "/assets/bootstrap/css/bootstrap.min.css"}]
-            [:link
-             {:type "text/css",
-              :rel  "stylesheet",
-              :href "/assets/font-awesome/css/font-awesome.min.css"}]
-            [:link
-             {:type "text/css", :rel "stylesheet", :href "/css/screen.css"}]
-            [:script
-             {:type "text/javascript"}
-             (boilerplate-js csrf-token servlet-context)]
-            [:script {:type "text/javascript", :src "/js/app.js"}]]])
+(defn main [{:keys [csrf-token servlet-context]}]
+  [:html
+   [:head
+    [:meta
+     {:http-equiv "Content-Type", :content "text/html; charset=UTF-8"}]
+    [:meta
+     {:name "viewport", :content "width=device-width, initial-scale=1"}]
+    [:title "Welcome to frontendfi"]]
+   [:body
+    [:div#navbar]
+    [:div#app
+     (rum/render-html (app))]
+    [:link
+     {:type "text/css",
+      :rel  "stylesheet",
+      :href "/assets/bootstrap/css/bootstrap.min.css"}]
+    [:link
+     {:type "text/css",
+      :rel  "stylesheet",
+      :href "/assets/font-awesome/css/font-awesome.min.css"}]
+    [:link
+     {:type "text/css", :rel "stylesheet", :href "/css/screen.css"}]
+    [:script
+     {:type "text/javascript"}
+     (boilerplate-js csrf-token servlet-context)]
+    [:script {:type "text/javascript", :src "/js/app.js"}]]])
 
 (defn error [{:keys [status title message]}]
   (page/html5
