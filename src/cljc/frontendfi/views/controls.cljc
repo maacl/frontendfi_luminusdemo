@@ -1,6 +1,9 @@
 (ns frontendfi.views.controls
   (:require
-    [rum.core :as rum]))
+    [rum.core :as rum])
+  #?(:cljs
+     (:require-macros
+     [devcards.core :as dc :refer [defcard deftest]])))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -33,3 +36,6 @@
 #?(:cljs
    (defn mount! [mount-el]
      (rum/mount (controls) mount-el)))
+
+#?(:cljs
+   (defcard (controls)))

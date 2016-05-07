@@ -72,7 +72,7 @@
   :target-path "target/%s/"
   :profiles
   {:uberjar {:omit-source true
-             
+
               :prep-tasks ["compile" ["cljsbuild" "once"]]
               :cljsbuild
               {:builds
@@ -82,8 +82,8 @@
                  {:optimizations :advanced
                   :pretty-print false
                   :closure-warnings
-                  {:externs-validation :off :non-standard-jsdoc :off}}}}} 
-             
+                  {:externs-validation :off :non-standard-jsdoc :off}}}}}
+
              :aot :all
              :uberjar-name "frontendfi.jar"
              :source-paths ["env/prod/clj"]
@@ -98,12 +98,13 @@
                                  [lein-doo "0.1.6"]
                                  [com.cemerick/piggieback "0.2.2-SNAPSHOT"]
 
-                                 [org.clojure/tools.namespace "0.2.11"]]
+                                 [org.clojure/tools.namespace "0.2.11"]
+                                 [devcards "0.2.1-6"]]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.14.0"]
                                  [lein-figwheel "0.5.2"]
                                  [lein-doo "0.1.6"]
                                  [org.clojure/clojurescript "1.8.51"]]
-                  
+
                    :cljsbuild
                    {:builds
                     {:app
@@ -113,14 +114,22 @@
                        :asset-path "/js/out"
                        :optimizations :none
                        :source-map true}}
+                     :devcards
+                     {:source-paths ["env/dev/cljs"]
+                      :figwheel { :devcards true }
+                      :compiler {:main "frontendfi.app"
+                                 :asset-path "js/devcards_out"
+                                 :output-to  "target/cljsbuild/public/js/frontendfi_devcards.js"
+                                 :output-dir "target/cljsbuild/public/js/devcards_out"
+                                 :source-map-timestamp true }}
                      :test
                      {:source-paths ["src/cljc" "src/cljs" "test/cljs"]
                       :compiler
                       {:output-to "target/test.js"
                        :main "frontendfi.doo-runner"
                        :optimizations :whitespace
-                       :pretty-print true}}}} 
-                  
+                       :pretty-print true}}}}
+
                   :figwheel
                   {:http-server-root "public"
                    :nrepl-port 7002

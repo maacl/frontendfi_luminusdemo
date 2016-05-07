@@ -2,7 +2,8 @@
   (:require [hiccup.page :as page]
             [hiccup.element :as el]
             [rum.core :as rum]
-            [frontendfi.views.app :refer [app]]))
+            [frontendfi.views.app :refer [app]]
+            [devcards.core :as devcards]))
 
 (defn- boilerplate-js [token context]
   (str "var context = " context ";
@@ -86,3 +87,24 @@
           [:hr]
           (when title [:h2.without-margin title])
           (when message [:h4.text-danger message])]]]]]]))
+
+(rum/defc devcards [params]
+  [:html
+   [:head
+    [:meta
+     {:content
+            "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+      :name "viewport"}]
+    [:meta {:charset "UTF-8"}]]
+   [:body
+    [:link
+     {:type "text/css",
+      :rel  "stylesheet",
+      :href "/assets/bootstrap/css/bootstrap.min.css"}]
+    [:link
+     {:type "text/css",
+      :rel  "stylesheet",
+      :href "/assets/font-awesome/css/font-awesome.min.css"}]
+    [:link
+     {:type "text/css", :rel "stylesheet", :href "/css/screen.css"}]
+    [:script {:type "text/javascript", :src "/js/frontendfi_devcards.js"}]]])
