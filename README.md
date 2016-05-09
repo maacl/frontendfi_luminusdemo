@@ -6,10 +6,14 @@ generated using Luminus version "2.9.10.47"
 
 ## Prerequisites
 
-You will need [Leiningen][1] 2.0 or above installed.
+You will need the following installed:
+
+[Leiningen][1] 2.0 or above.
+
+[saasc][2] - for OSX ```brew install sassc``` will do the trick.
 
 [1]: https://github.com/technomancy/leiningen
-
+[2]: https://github.com/sass/sassc
 ## Running
 
 To start a web server for the application, run:
